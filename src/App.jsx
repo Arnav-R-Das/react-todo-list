@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react"
+import { NewTodoForm } from "./NewTodoForm"
+import "./styles.css"
+import { TodoList } from "./TodoList"
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+
+  // HOOKS
+
+    // Hooks can't be put inside conditions (ifs or returns)
+
+    const [todos, setTodos] = useState(() => {
+      const localValue = localStorage.getItem("ITEMS")
+      if (localValue == null) return []
+
+      return JSON.parse(localValue)
+    })
+
+    // Whenever the value of todos changes, the function inside useEffect is executed
+    useEffect(() => {
+      localStorage.setItem("ITEMS", JSON.stringify(todos))
+    },
+    [todos])
+
+  // FUNCTIONS
+
+    function addTodo(title) {
+      setTodos(currentTodos => {
+        return [
+          ...currentTodos,
+          { id: crypto.randomUUID(), title, completed: false }
+        ]
+      })
+    }
+
+    function toggleTodo(id, completed) {
+      setTodos(currentTodos => {
+        return currentTodos.map(todo => {
+          if (todo.id === id) {
+            return { ...todo, completed }
+          }
+          return todo
+        })
+      })
+    }
+
+    function deleteTodo(id) {
+      setTodos(currentTodos => {
+        return currentTodos.filter( todo => todo.id != id )
+      })
+    }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      < NewTodoForm addTodo={addTodo} /> 
+
+      <h1 className="header"> Todo List </h1>
+
+      <TodoList
+        todos={todos}
+        toggleTodo={toggleTodo}
+        deleteTodo={deleteTodo}
+      />
+
     </>
   )
 }
-
-export default App

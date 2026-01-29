@@ -1,13 +1,32 @@
-# React + Vite
+YouTube Channel:    Web Dev Simplified
+Video Name:         Learn React With This One Project
+Tutorial Link:      https://www.youtube.com/watch?v=Rh3tobg7hEo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+React Notes
+ - To run the project -> Run 'npm run dev' in terminal
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ - main.jsx
+    - It connects index.html to App.jsx
+ 
+ - Components
+    - Any function which starts with a capital letter and returns jsx
+    - It can only return a single top-level element.
+      If there are more elements, they are often enclosed in a fragment
+    - They can be further broken down into smaller components
 
-## Expanding the ESLint configuration
+ - Fragment
+    - An element with an empty tag
+    - Syntax: <> </>
+ 
+ - App.jsx 
+    - It's the first component
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# react-todo-list
+ - .js v/s .jsx syntax
+    - class     className
+    - for       htmlFor
+
+ - State
+    - import { use, useState } from "react"
+    - const [variable, function_To_Update_Variable_Value] = useState("Variable_Value")
+    
